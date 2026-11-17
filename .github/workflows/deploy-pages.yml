@@ -1,13 +1,20 @@
 name: Deploy do GitHub Pages (mirror)
 
 on:
+  # Bezpośrednie commity na main
   push:
+    branches: [main]
+  # Merge PR-a do main — deploy dopiero po zamknięciu i scaleniu
+  pull_request:
+    types: [closed]
     branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
+# Push i pull_request.closed przychodzą prawie jednocześnie przy merge'u —
+# anulowanie w toku zapobiega podwójnej publikacji tego samego commita.
 concurrency:
   group: github-pages
   cancel-in-progress: true
@@ -16,11 +23,19 @@ jobs:
   deploy:
     name: Build i publikacja na refinico.github.io
     runs-on: ubuntu-latest
+    # Ignoruj PR-y zamknięte bez merge'a oraz PR-y z forków (brak sekretów).
+    if: >
+      github.event_name != 'pull_request' ||
+      (github.event.pull_request.merged == true &&
+       github.event.pull_request.base.ref == 'main' &&
+       github.event.pull_request.head.repo.full_name == github.repository)
     env:
       SITE_URL: https://refinico.github.io
     steps:
-      - name: Checkout
+      - name: Checkout (stan po merge'u, tj. main)
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
