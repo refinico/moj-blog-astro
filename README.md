@@ -46,6 +46,8 @@ Workflow `.github/workflows/deploy-pages.yml` uruchamia się gdy:
 - **pull request do `main` zostanie zmerge'owany i zamknięty** (PR-y zamknięte bez merge'a są ignorowane),
 - uruchomisz go ręcznie (`workflow_dispatch`).
 
+Zmiany w PRze nie są publikowane przed merge'em — trafiają na stronę dopiero po scaleniu z `main`.
+
 Workflow robi `npm ci` → `npm run build` i publikuje `dist/` do repo
 `refinico/refinico.github.io` (gałąź `gh-pages`). Używa sekretu `PAGES_DEPLOY_KEY`
 (deploy key z dostępem zapisu) oraz `SITE_URL=https://refinico.github.io` dla linków kanonicznych.
