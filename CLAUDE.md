@@ -83,6 +83,11 @@ Tryb ciemny: atrybut `data-theme="light|dark"` na `<html>`, wybór w `localStora
   gałąź produkcyjna `main`, build `npm run build`, output `dist`.
 - Adres produkcyjny: **https://moj-blog-astro.pages.dev**. Zmienna `SITE_URL` jest ustawiona
   w projekcie Pages (RSS i sitemap używają jej do linków kanonicznych).
+- **Mirror:** ten sam push na `main` odpala workflow `.github/workflows/deploy-pages.yml`,
+  który publikuje `dist/` na **https://refinico.github.io/** (repo `refinico/refinico.github.io`,
+  gałąź `gh-pages`, sekret `PAGES_DEPLOY_KEY`, `SITE_URL=https://refinico.github.io`).
+  Używaj tego adresu, gdy DNS/VPN nie rozwiązuje `pages.dev`. Nie edytuj repo `refinico.github.io`
+  ręcznie — zawiera tylko wygenerowane pliki.
 - Projekt Pages jest typu **Git-integrated** — nie zmieniaj go na Direct Upload (`wrangler pages
   deploy` bez Gita), bo stracisz automatyczne deploye przy pushu.
 - `wrangler.toml` i `vercel.json` zostawiamy jako dokumentację/fallback. Nie używaj

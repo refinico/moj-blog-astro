@@ -57,6 +57,16 @@ npm run deploy:cloudflare   # build + wrangler pages deploy
 npm run deploy:vercel       # alternatywa: Vercel
 ```
 
+### Mirror na GitHub Pages
+
+Równolegle ten sam push publikuje stronę pod **https://refinico.github.io/**
+(gałąź `main` → workflow `.github/workflows/deploy-pages.yml` → repo
+`refinico/refinico.github.io`, gałąź `gh-pages`). Używa sekretu `PAGES_DEPLOY_KEY`
+(deploy key z dostępem zapisu do repo Pages) i zmiennej `SITE_URL=https://refinico.github.io`
+w buildzie. Repozytorium `refinico.github.io` zawiera tylko wygenerowane pliki — nie edytuj go ręcznie.
+
+Adres GitHub Pages jest przydatny, gdy lokalny DNS/VPN nie rozwiązuje `*.pages.dev`.
+
 > Uwaga: nie używaj `npx wrangler deploy` — to komenda Workers, nie Pages.
 > Przed każdym pushem uruchom `npm run build`.
 
