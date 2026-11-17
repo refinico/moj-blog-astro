@@ -1,0 +1,19 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-16 border-t border-slate-200 py-10 dark:border-slate-800">
+	<div
+		class="mx-auto flex max-w-3xl flex-col items-center justify-between gap-4 px-5 text-sm text-slate-500 sm:flex-row dark:text-slate-400"
+	>
+		<p>&copy; {year} Refinico AI Daily. Wszelkie prawa zastrzeżone.</p>
+		<nav class="flex gap-5" aria-label="Nawigacja w stopce">
+			<a class="transition-colors hover:text-slate-900 dark:hover:text-white" href="/blog">Blog</a>
+			<a class="transition-colors hover:text-slate-900 dark:hover:text-white" href="/rss.xml">RSS</a>
+			<a
+				class="transition-colors hover:text-slate-900 dark:hover:text-white"
+				href="/sitemap-index.xml">Mapa strony</a
+			>
+		</nav>
+	</div>
+</footer>

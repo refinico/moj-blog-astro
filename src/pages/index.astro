@@ -1,0 +1,63 @@
+---
+import PostCard from '../components/PostCard.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPublishedPosts } from '../utils/posts';
+
+const posts = await getPublishedPosts();
+const latest = posts.slice(0, 3);
+---
+
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<section class="py-6 sm:py-12">
+		<p class="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400">
+			AI · Technologia · Kod
+		</p>
+		<h1
+			class="mt-4 text-4xl font-bold leading-[1.15] tracking-tight text-slate-900 sm:text-5xl dark:text-white"
+		>
+			Myśli, kod i codzienne eksperymenty.
+		</h1>
+		<p class="mt-6 max-w-2xl text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+			{SITE_DESCRIPTION} Piszę o tym, co działa, co mnie zaskoczyło i czego nauczyłem się po drodze.
+		</p>
+		<div class="mt-9 flex flex-wrap gap-3">
+			<a
+				href="/blog"
+				class="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-indigo-500"
+			>
+				Zobacz wszystkie wpisy &rarr;
+			</a>
+			<a
+				href="/about"
+				class="rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
+			>
+				O mnie
+			</a>
+		</div>
+	</section>
+
+	<section class="mt-8" aria-labelledby="latest-heading">
+		<h2 id="latest-heading" class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+			Najnowsze wpisy
+		</h2>
+		<div class="mt-6 grid gap-8">
+			{latest.map((post) => <PostCard post={post} />)}
+		</div>
+		{
+			posts.length === 0 && (
+				<p class="mt-6 text-slate-500 dark:text-slate-400">Jeszcze nie ma żadnych wpisów.</p>
+			)
+		}
+		{
+			posts.length > 3 && (
+				<a
+					href="/blog"
+					class="mt-8 inline-block text-sm font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
+				>
+					Wszystkie wpisy &rarr;
+				</a>
+			)
+		}
+	</section>
+</BaseLayout>

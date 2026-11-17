@@ -1,0 +1,39 @@
+---
+import { SITE_TITLE } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title={`O mnie — ${SITE_TITLE}`} description="Kim jestem i o czym piszę na tym blogu.">
+	<article>
+		<header class="mb-10">
+			<p class="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400">
+				O mnie
+			</p>
+			<h1 class="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
+				Cześć! Tu Refinico.
+			</h1>
+		</header>
+
+		<div class="prose">
+			<p>
+				To miejsce na notatki z codziennej pracy z technologią — głównie ze sztuczną
+				inteligencją, automatyzacją i budowaniem oprogramowania. Piszę tu rzeczy, które sam
+				chciałbym znaleźć w internecie: konkretne przykłady, krótkie wnioski i opisy błędów,
+				których udało się uniknąć.
+			</p>
+			<p>
+				Jeśli wolisz krótką formę, zajrzyj na <a href="/blog">listę wpisów</a> albo subskrybuj
+				<a href="/rss.xml">kanał RSS</a>.
+			</p>
+		</div>
+
+		<div class="mt-12 border-t border-slate-200 pt-6 dark:border-slate-800">
+			<a
+				href="/blog"
+				class="text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
+			>
+				&larr; Przejdź do bloga
+			</a>
+		</div>
+	</article>
+</BaseLayout>
