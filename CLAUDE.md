@@ -79,4 +79,7 @@ Tryb ciemny: atrybut `data-theme="light|dark"` na `<html>`, wybór w `localStora
 
 - Repo GitHub: `moj-blog-astro` (klient `gh` jest zalogowany).
 - Hosting: Cloudflare Pages (`wrangler.toml`) albo Vercel (`vercel.json`) — oba pliki są w katalogu głównym.
+- Cloudflare Pages: w panelu **Build command = `npm run build`**, **Deploy command =
+  `npm run deploy:cloudflare:ci`** (czyli `npx wrangler pages deploy dist --project-name moj-blog-astro`).
+  Domyślne `npx wrangler deploy` to komenda Workers i kończy się błędem `Missing entry-point`.
 - Adres kanoniczny: ustaw zmienną środowiskową `SITE_URL` na docelowy adres (domyślnie `https://moj-blog-astro.pages.dev`); sitemap i RSS używają tej wartości.

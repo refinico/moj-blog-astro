@@ -1,3 +1,7 @@
+# Cloudflare Pages — ten plik jest wyłącznie konfiguracją Pages.
+# UWAGA: w panelu Cloudflare (Settings → Build & deploy) jako „Deploy command"
+# ustaw: npx wrangler pages deploy dist --project-name moj-blog-astro
+# Domyślne `npx wrangler deploy` to komenda Workers i zakończy się błędem.
 name = "moj-blog-astro"
 compatibility_date = "2026-11-17"
 pages_build_output_dir = "dist"

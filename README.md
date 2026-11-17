@@ -45,6 +45,14 @@ npm run deploy:cloudflare   # wymaga logowania: npx wrangler login
 npm run deploy:vercel       # wymaga logowania: npx vercel login
 ```
 
-Albo podłącz repozytorium `moj-blog-astro` do Cloudflare Pages / Vercel przez panel — build command `npm run build`, katalog wyjściowy `dist`.
+Albo podłącz repozytorium `moj-blog-astro` do Cloudflare Pages / Vercel przez panel:
+
+- **Build command:** `npm run build`
+- **Build output directory:** `dist`
+- **Deploy command (Cloudflare Pages!):** `npm run deploy:cloudflare:ci`
+
+Cloudflare domyślnie podstawia `npx wrangler deploy` (komenda Workers) — to kończy się błędem
+`Missing entry-point to Worker script`. W panelu zmień Deploy command na
+`npx wrangler pages deploy dist --project-name moj-blog-astro` i ustaw zmienną `SITE_URL`.
 
 > Przed każdym `git push` uruchom `npm run build`.
