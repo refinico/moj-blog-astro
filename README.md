@@ -36,23 +36,28 @@ draft: false
 - RSS (`/rss.xml`), mapa strony (`/sitemap-index.xml`), metadata Open Graph,
 - gotowe konfiguracje wdrożenia: Cloudflare Pages i Vercel.
 
-## Deploy
+## Deploy (automatyczny)
 
-Ustaw `SITE_URL` na docelowy adres, a następnie:
+Produkcja działa na **Cloudflare Pages** i jest podłączona do GitHuba
+(`refinico/moj-blog-astro`, gałąź `main`). Wypchnięcie commita na `main` automatycznie
+buduje i publikuje stronę pod adresem **https://moj-blog-astro.pages.dev**.
 
-```bash
-npm run deploy:cloudflare   # wymaga logowania: npx wrangler login
-npm run deploy:vercel       # wymaga logowania: npx vercel login
-```
+Konfiguracja projektu Pages (ustawiona raz przez API Cloudflare):
 
-Albo podłącz repozytorium `moj-blog-astro` do Cloudflare Pages / Vercel przez panel:
-
+- **Source:** GitHub `refinico/moj-blog-astro`
+- **Production branch:** `main`
 - **Build command:** `npm run build`
 - **Build output directory:** `dist`
-- **Deploy command (Cloudflare Pages!):** `npm run deploy:cloudflare:ci`
+- **Zmienna `SITE_URL`:** `https://moj-blog-astro.pages.dev` (używana przez RSS i sitemap)
 
-Cloudflare domyślnie podstawia `npx wrangler deploy` (komenda Workers) — to kończy się błędem
-`Missing entry-point to Worker script`. W panelu zmień Deploy command na
-`npx wrangler pages deploy dist --project-name moj-blog-astro` i ustaw zmienną `SITE_URL`.
+Deploy ręczny (fallback, wymaga `npx wrangler login`):
+
+```bash
+npm run deploy:cloudflare   # build + wrangler pages deploy
+npm run deploy:vercel       # alternatywa: Vercel
+```
+
+> Uwaga: nie używaj `npx wrangler deploy` — to komenda Workers, nie Pages.
+> Przed każdym pushem uruchom `npm run build`.
 
 > Przed każdym `git push` uruchom `npm run build`.
