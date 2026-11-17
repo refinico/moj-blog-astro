@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // Adres kanoniczny. Nadpisz zmienną SITE_URL przy deployu na własną domenę.
 export default defineConfig({
-	site: process.env.SITE_URL || 'https://moj-blog-astro.pages.dev',
+	site: process.env.SITE_URL || 'https://refinico.github.io',
 	integrations: [mdx(), sitemap()],
 	vite: {
 		plugins: [tailwindcss()],

@@ -41,15 +41,9 @@ npm run build     # produkcyjny build do katalogu dist/
 npm run preview   # podgląd zbudowanej wersji
 ```
 
-Publikacja — podstawowy sposób: **wypchnij commita na `main`**, Cloudflare Pages zrobi build i deploy
-automatycznie (https://moj-blog-astro.pages.dev).
-
-Ręcznie (fallback, wymaga `npx wrangler login` / `npx vercel login`):
-
-```bash
-npm run deploy:cloudflare   # npx wrangler pages deploy dist --project-name moj-blog-astro
-npm run deploy:vercel       # npx vercel --prod
-```
+Publikacja odbywa się **wyłącznie przez GitHub Actions**: push na `main` albo merge PR-a do `main`
+odpala workflow `.github/workflows/deploy-pages.yml`, który publikuje stronę na
+**https://refinico.github.io/**. Nie ma już Cloudflare Pages ani Vercela.
 
 ## 4. ZASADA BEZWZGLĘDNA — build przed każdym wypchnięciem
 
@@ -78,17 +72,11 @@ Tryb ciemny: atrybut `data-theme="light|dark"` na `<html>`, wybór w `localStora
 
 ## 6. Repozytorium i hosting
 
-- Repo GitHub: `moj-blog-astro` (klient `gh` jest zalogowany).
-- Hosting: **Cloudflare Pages z automatycznym deployem z GitHuba**. Repo `refinico/moj-blog-astro`,
-  gałąź produkcyjna `main`, build `npm run build`, output `dist`.
-- Adres produkcyjny: **https://moj-blog-astro.pages.dev**. Zmienna `SITE_URL` jest ustawiona
-  w projekcie Pages (RSS i sitemap używają jej do linków kanonicznych).
-- **Mirror:** ten sam push na `main` odpala workflow `.github/workflows/deploy-pages.yml`,
-  który publikuje `dist/` na **https://refinico.github.io/** (repo `refinico/refinico.github.io`,
-  gałąź `gh-pages`, sekret `PAGES_DEPLOY_KEY`, `SITE_URL=https://refinico.github.io`).
-  Używaj tego adresu, gdy DNS/VPN nie rozwiązuje `pages.dev`. Nie edytuj repo `refinico.github.io`
-  ręcznie — zawiera tylko wygenerowane pliki.
-- Projekt Pages jest typu **Git-integrated** — nie zmieniaj go na Direct Upload (`wrangler pages
-  deploy` bez Gita), bo stracisz automatyczne deploye przy pushu.
-- `wrangler.toml` i `vercel.json` zostawiamy jako dokumentację/fallback. Nie używaj
-  `npx wrangler deploy` (komenda Workers) — tylko `npx wrangler pages deploy ...`.
+- Repo źródłowe: `refinico/moj-blog-astro` (klient `gh` jest zalogowany).
+- Hosting: **wyłącznie GitHub Pages** — https://refinico.github.io/
+- Deploy: workflow `.github/workflows/deploy-pages.yml` (push na `main`, zmerge'owany PR do `main`
+  albo `workflow_dispatch`) buduje Astro i publikuje `dist/` do repo
+  `refinico/refinico.github.io`, gałąź `gh-pages`, przez sekret `PAGES_DEPLOY_KEY`.
+- `SITE_URL=https://refinico.github.io` ustawione w workflow; RSS i sitemap używają go do linków.
+- Repo `refinico.github.io` zawiera tylko wygenerowane pliki — nigdy nie edytuj go ręcznie.
+- Cloudflare Pages i Vercel zostały usunięte — nie przywracaj ich bez wyraźnego zlecenia.

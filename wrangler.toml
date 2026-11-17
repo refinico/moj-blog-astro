@@ -1,8 +1,0 @@
-# Cloudflare Pages — konfiguracja pomocnicza Wranglera.
-# Projekt jest podłączony do GitHuba (repo refinico/moj-blog-astro, gałąź main)
-# i deployuje się automatycznie po każdym pushu: https://moj-blog-astro.pages.dev
-# `npm run deploy:cloudflare` pozostaje jako fallback wdrożenia ręcznego.
-# NIE używaj `npx wrangler deploy` — to komenda Workers, nie Pages.
-name = "moj-blog-astro"
-compatibility_date = "2026-11-17"
-pages_build_output_dir = "dist"

@@ -34,40 +34,21 @@ draft: false
 - filtrowanie po tagach z zachowaniem wyboru w URL (`/blog/?tag=astro`),
 - motyw jasny/ciemny z zapisem w `localStorage`,
 - RSS (`/rss.xml`), mapa strony (`/sitemap-index.xml`), metadata Open Graph,
-- gotowe konfiguracje wdrożenia: Cloudflare Pages i Vercel.
+- automatyczny deploy na GitHub Pages przez GitHub Actions.
 
-## Deploy (automatyczny)
+## Deploy (GitHub Pages + GitHub Actions)
 
-Produkcja działa na **Cloudflare Pages** i jest podłączona do GitHuba
-(`refinico/moj-blog-astro`, gałąź `main`). Wypchnięcie commita na `main` automatycznie
-buduje i publikuje stronę pod adresem **https://moj-blog-astro.pages.dev**.
+Jedyny cel wdrożenia: **https://refinico.github.io/**
 
-Konfiguracja projektu Pages (ustawiona raz przez API Cloudflare):
+Workflow `.github/workflows/deploy-pages.yml` uruchamia się gdy:
 
-- **Source:** GitHub `refinico/moj-blog-astro`
-- **Production branch:** `main`
-- **Build command:** `npm run build`
-- **Build output directory:** `dist`
-- **Zmienna `SITE_URL`:** `https://moj-blog-astro.pages.dev` (używana przez RSS i sitemap)
+- commit trafia bezpośrednio na `main`,
+- **pull request do `main` zostanie zmerge'owany i zamknięty** (PR-y zamknięte bez merge'a są ignorowane),
+- uruchomisz go ręcznie (`workflow_dispatch`).
 
-Deploy ręczny (fallback, wymaga `npx wrangler login`):
-
-```bash
-npm run deploy:cloudflare   # build + wrangler pages deploy
-npm run deploy:vercel       # alternatywa: Vercel
-```
-
-### Mirror na GitHub Pages
-
-Równolegle ten sam push publikuje stronę pod **https://refinico.github.io/**
-(gałąź `main` → workflow `.github/workflows/deploy-pages.yml` → repo
-`refinico/refinico.github.io`, gałąź `gh-pages`). Używa sekretu `PAGES_DEPLOY_KEY`
-(deploy key z dostępem zapisu do repo Pages) i zmiennej `SITE_URL=https://refinico.github.io`
-w buildzie. Repozytorium `refinico.github.io` zawiera tylko wygenerowane pliki — nie edytuj go ręcznie.
-
-Adres GitHub Pages jest przydatny, gdy lokalny DNS/VPN nie rozwiązuje `*.pages.dev`.
-
-> Uwaga: nie używaj `npx wrangler deploy` — to komenda Workers, nie Pages.
-> Przed każdym pushem uruchom `npm run build`.
+Workflow robi `npm ci` → `npm run build` i publikuje `dist/` do repo
+`refinico/refinico.github.io` (gałąź `gh-pages`). Używa sekretu `PAGES_DEPLOY_KEY`
+(deploy key z dostępem zapisu) oraz `SITE_URL=https://refinico.github.io` dla linków kanonicznych.
+Repo `refinico.github.io` zawiera tylko wygenerowane pliki — nie edytuj go ręcznie.
 
 > Przed każdym `git push` uruchom `npm run build`.
