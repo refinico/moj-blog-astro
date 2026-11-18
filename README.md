@@ -64,3 +64,20 @@ Push na `main` lub merge PR-a do `main` odpala workflow
 `.github/workflows/deploy-pages.yml`, który publikuje `dist/` na **https://refinico.github.io/**.
 
 > Przed każdym `git push` uruchom `npm run build`.
+
+## Bezpieczeństwo / npm audit
+
+`npm run audit` działa jak `npm audit`, ale respektuje **datowane wyjątki** z listy `ACCEPTED`
+w `scripts/audit.mjs`. Po dacie `until` wyjątek przestaje działać i skrypt zaczyna zgłaszać
+błąd — wtedy trzeba podjąć decyzję: usunąć wyjątek (gdy upstream wyda fix) albo świadomie
+przedłużyć datę.
+
+Aktualny wyjątek:
+
+| Advisory | Pakiet | Ważne do | Powód |
+|---|---|---|---|
+| [GHSA-fc5q-39xc-vjpf](https://github.com/advisories/GHSA-fc5q-39xc-vjpf) (CVE-2026-112366) | `picomatch` ≤ 4.0.7 (+10 pakietów pośrednich w łańcuchu Astro) | 2026-12-31 | Brak łatanej wersji na npm (fix: [micromatch/picomatch#194](https://github.com/micromatch/picomatch/pull/194), wciąż niemerged). ReDoS na wzorcach glob — zależność wyłącznie build-time; blog nie przepuszcza przez nią danych od atakującego, więc podatność jest tu nieeksploatowalna. |
+
+Gdy pojawi się łatana wersja `picomatch`: usuń wpis z `ACCEPTED` i uruchom `npm update picomatch`
+(ewentualnie dodaj `overrides` w `package.json`, jeśli łańcuch Astro nie podniesie wersji sam).
+

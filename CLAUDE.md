@@ -35,7 +35,14 @@ Nazwy plików: małe litery, myślniki zamiast spacji, bez polskich znaków. Pli
 npm run dev       # http://localhost:4321
 npm run build     # dist/
 npm run preview
+npm run audit     # audyt zależności z datowanymi wyjątkami (scripts/audit.mjs)
 ```
+
+`npm run audit` pomija podatności z listy `ACCEPTED` w `scripts/audit.mjs` do daty `until`.
+Obecnie akceptujemy ReDoS w picomatch (CVE-2026-112366, brak łatanej wersji upstream; zależność
+tylko build-time) — szczegóły w README, sekcja „Bezpieczeństwo / npm audit". Nie usuwaj wyjątku
+bez sprawdzenia, czy picomatch wydał łatana wersję. Surowy `npm audit` nadal pokaże 11 zgłoszeń —
+to oczekiwane.
 
 Publikacja: push na `main` albo merge PR-a do `main` → GitHub Actions
 (`.github/workflows/deploy-pages.yml`) → https://refinico.github.io/
