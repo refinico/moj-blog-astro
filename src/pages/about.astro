@@ -3,37 +3,29 @@ import { SITE_TITLE } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title={`O mnie — ${SITE_TITLE}`} description="Kim jestem i o czym piszę na tym blogu.">
-	<article>
-		<header class="mb-10">
-			<p class="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400">
-				O mnie
-			</p>
-			<h1 class="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
-				Cześć! Tu Refinico.
-			</h1>
-		</header>
+<BaseLayout title={`O mnie — ${SITE_TITLE}`} description="Kim jestem i o czym piszę na Refinico AI Daily.">
+	<section class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-12 pb-20">
+		<a href="/" class="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6">
+			<svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"></path></svg>
+			Wstecz
+		</a>
 
-		<div class="prose">
-			<p>
-				To miejsce na notatki z codziennej pracy z technologią — głównie ze sztuczną
-				inteligencją, automatyzacją i budowaniem oprogramowania. Piszę tu rzeczy, które sam
-				chciałbym znaleźć w internecie: konkretne przykłady, krótkie wnioski i opisy błędów,
-				których udało się uniknąć.
+		<div class="max-w-3xl">
+			<p class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-primary mb-3">
+				<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+				O blogu
 			</p>
-			<p>
-				Jeśli wolisz krótką formę, zajrzyj na <a href="/blog">listę wpisów</a> albo subskrybuj
-				<a href="/rss.xml">kanał RSS</a>.
+			<h1 class="text-3xl lg:text-5xl font-semibold tracking-tight text-foreground mb-6">Cześć! Tu Refinico.</h1>
+			<p class="text-lg text-muted-foreground leading-relaxed mb-10">
+				To miejsce na notatki z codziennej pracy z technologią — głównie ze sztuczną inteligencją, automatyzacją i budowaniem oprogramowania. Piszę o tym, co działa, co mnie zaskoczyło i czego nauczyłem się po drodze.
 			</p>
-		</div>
 
-		<div class="mt-12 border-t border-slate-200 pt-6 dark:border-slate-800">
-			<a
-				href="/blog"
-				class="text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
-			>
-				&larr; Przejdź do bloga
-			</a>
+			<div class="article-prose">
+				<h2>Co znajdziesz na blogu</h2>
+				<p>Krótkie artykuły z konkretnymi przykładami, analizy nowych modeli i narzędzi oraz poradniki, które można od razu wykorzystać w pracy. Treści powstają po polsku i są publikowane przez merge pull requesta do gałęzi głównej.</p>
+				<h2>Kontakt</h2>
+				<p>Jeśli chcesz zaproponować temat albo współpracę, zajrzyj na stronę <a href="/partnerships">współpracy</a> albo do kanału <a href="/rss.xml">RSS</a>.</p>
+			</div>
 		</div>
-	</article>
+	</section>
 </BaseLayout>

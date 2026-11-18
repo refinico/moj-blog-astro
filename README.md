@@ -1,6 +1,8 @@
 # Refinico AI Daily
 
-Szybki, statyczny blog oparty na [Astro](https://astro.build/) 7 i Tailwind CSS 4. Treści po polsku, zero JavaScriptu po stronie treści (poza drobnym filtrem tagów i przełącznikiem motywu).
+Statyczny blog w Astro 7 + Tailwind CSS 4. Układ, typografia i motyw wzorowane na szablonie
+**Build Fast with AI**: ciepły kremowy motyw jasny, ciemny tryb, featuring, siatka 3 kolumn,
+kolekcje, filtry kategorii z wyszukiwarką oraz strona wpisu z pływającym paskiem udostępniania.
 
 ## Start
 
@@ -18,39 +20,47 @@ Utwórz plik `src/content/blog/nazwa-wpisu.md` (małe litery, myślniki, bez pol
 ```yaml
 ---
 title: "Tytuł"
-description: "Opis do listy i SEO"
+description: "Opis do karty i SEO"
 pubDate: "2026-11-17"
 updatedDate: "2026-11-18"  # opcjonalnie
-tags: ["ai", "astro"]
+tags: ["Analizy", "Modele AI", "RAG"]  # WYMAGANE; pierwszy tag = kategoria
 draft: false
+heroImage: "../../assets/cover-agents.png"  # opcjonalnie
 ---
 ```
 
-`draft: true` ukrywa wpis na produkcji. Szczegóły w [`CLAUDE.md`](./CLAUDE.md).
+Czas czytania jest liczony automatycznie z liczby słów. Okładki leżą w `src/assets/`.
 
-## Funkcje
+## Struktura
 
-- Content Collections (`.md` i `.mdx`) ze schematem walidowanym przy buildzie,
-- filtrowanie po tagach z zachowaniem wyboru w URL (`/blog/?tag=astro`),
-- motyw jasny/ciemny z zapisem w `localStorage`,
-- RSS (`/rss.xml`), mapa strony (`/sitemap-index.xml`), metadata Open Graph,
-- automatyczny deploy na GitHub Pages przez GitHub Actions.
+```
+src/
+├─ assets/              # okładki wpisów i kolekcji (PNG)
+├─ components/
+│  ├─ Header, Footer, ThemeToggle
+│  ├─ FeaturedPost, PostCard
+│  ├─ PostExplorer, Pagination
+│  └─ AllPostsView, BaseHead, FormattedDate
+├─ content/blog/        # WPISY (.md / .mdx)
+├─ layouts/
+│  ├─ BaseLayout.astro  # nagłówek + stopka + motyw
+│  └─ BlogPost.astro    # strona wpisu
+├─ pages/
+│  ├─ index.astro       # wyróżniony wpis, najnowsze, wszystkie, kolekcje
+│  ├─ all/              # lista z filtrem, wyszukiwarką i paginacją
+│  ├─ blog/             # alternatywny adres listy + strony wpisów
+│  ├─ about, partnerships
+│  └─ rss.xml.js
+├─ styles/global.css    # tokeny motywu, fonty, typografia wpisu
+└─ utils/posts.ts       # sortowanie, kategoria, czas czytania, paginacja
+```
 
-## Deploy (GitHub Pages + GitHub Actions)
+Motyw: `localStorage['blogs-theme']` (`light`/`dark`), domyślnie jasny. Tokeny kolorów i fonty
+(Inter, Space Grotesk, Libre Baskerville) są zdefiniowane w `src/styles/global.css`.
 
-Jedyny cel wdrożenia: **https://refinico.github.io/**
+## Deploy
 
-Workflow `.github/workflows/deploy-pages.yml` uruchamia się gdy:
-
-- commit trafia bezpośrednio na `main`,
-- **pull request do `main` zostanie zmerge'owany i zamknięty** (PR-y zamknięte bez merge'a są ignorowane),
-- uruchomisz go ręcznie (`workflow_dispatch`).
-
-Zmiany w PRze nie są publikowane przed merge'em — trafiają na stronę dopiero po scaleniu z `main`.
-
-Workflow robi `npm ci` → `npm run build` i publikuje `dist/` do repo
-`refinico/refinico.github.io` (gałąź `gh-pages`). Używa sekretu `PAGES_DEPLOY_KEY`
-(deploy key z dostępem zapisu) oraz `SITE_URL=https://refinico.github.io` dla linków kanonicznych.
-Repo `refinico.github.io` zawiera tylko wygenerowane pliki — nie edytuj go ręcznie.
+Push na `main` lub merge PR-a do `main` odpala workflow
+`.github/workflows/deploy-pages.yml`, który publikuje `dist/` na **https://refinico.github.io/**.
 
 > Przed każdym `git push` uruchom `npm run build`.

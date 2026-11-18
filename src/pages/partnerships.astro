@@ -1,0 +1,39 @@
+---
+import { SITE_TITLE } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title={`Współpraca — ${SITE_TITLE}`} description="Gościnne wpisy, recenzje narzędzi i artykuły sponsorowane na Refinico AI Daily.">
+	<section class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-12 pb-20">
+		<a href="/" class="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6">
+			<svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"></path></svg>
+			Wstecz
+		</a>
+
+		<div class="max-w-3xl">
+			<p class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-primary mb-3">
+				<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+				Współpraca
+			</p>
+			<h1 class="text-3xl lg:text-5xl font-semibold tracking-tight text-foreground mb-6">Publikuj z nami</h1>
+			<p class="text-lg text-muted-foreground leading-relaxed mb-10">
+				Zapraszamy do współpracy autorów, zespoły produktowe i firmy z branży AI. Publikujemy gościnne artykuły, recenzje narzędzi oraz materiały edukacyjne.
+			</p>
+
+			<div class="grid gap-5 sm:grid-cols-2">
+				<div class="rounded-2xl border border-border bg-card p-6">
+					<h2 class="font-semibold text-foreground mb-2">Gościnne wpisy</h2>
+					<p class="text-sm text-muted-foreground">Podziel się praktycznym doświadczeniem lub studium przypadku. Wspólnie dopracujemy tekst do publikacji.</p>
+				</div>
+				<div class="rounded-2xl border border-border bg-card p-6">
+					<h2 class="font-semibold text-foreground mb-2">Recenzje narzędzi</h2>
+					<p class="text-sm text-muted-foreground">Masz dostęp do nowego modelu lub narzędzia? Napisz rzetelną recenzję z konkretnymi wnioskami.</p>
+				</div>
+			</div>
+
+			<p class="mt-10 text-sm text-muted-foreground">
+				Napisz do nas przez formularz kontaktowy lub otwórz pull request z propozycją treści w repozytorium bloga.
+			</p>
+		</div>
+	</section>
+</BaseLayout>

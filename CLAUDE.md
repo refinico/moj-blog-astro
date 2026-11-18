@@ -1,51 +1,46 @@
 # CLAUDE.md — stałe instrukcje dla agenta (Claude Code)
 
-Jesteś w głównym katalogu projektu **Refinico AI Daily** — statycznego bloga w Astro 7 + Tailwind CSS 4.
-Treści są po polsku. Zmieniaj tylko to, czego dotyczy zlecenie; nie reformuluj całego projektu „przy okazji".
+Jesteś w katalogu projektu **Refinico AI Daily** — statycznego bloga Astro 7 + Tailwind CSS 4.
+Wygląd, układ i typografia są wzorowane na szablonie Build Fast with AI. Treści są po polsku.
+Zmieniaj tylko to, czego dotyczy zlecenie.
 
-## 1. Gdzie są wpisy i jaki jest frontmatter
+## 1. Wpisy i frontmatter
 
-Wpisy leżą w **`src/content/blog/`** jako pliki `.md` lub `.mdx`. Schemat: `src/content.config.ts`.
+Wpisy: **`src/content/blog/`**, pliki `.md` lub `.mdx`. Schemat: `src/content.config.ts`.
 
-Każdy wpis **musi** mieć następujący blok frontmatter (kolejność dowolna):
+Wymagany blok frontmatter:
 
 ```yaml
 ---
-title: "Tytuł wpisu"                 # string, WYMAGANY
-description: "Krótki opis..."        # string, WYMAGANY (meta + karta wpisu)
-pubDate: "2026-11-17"                # data, WYMAGANA (ISO `RRRR-MM-DD`; `coerce.date()`)
-updatedDate: "2026-11-18"            # data, OPCJONALNA
-tags: ["ai", "astro"]                # tablica stringów, WYMAGANA (może być pusta: [])
-draft: false                         # boolean, OPCJONALNY, domyślnie false
-heroImage: "../../assets/x.jpg"      # ścieżka do obrazka, OPCJONALNA
+title: "Tytuł wpisu"                 # WYMAGANY string
+description: "Opis do karty i SEO"    # WYMAGANY string
+pubDate: "2026-11-17"                # WYMAGANA data ISO
+updatedDate: "2026-11-18"            # opcjonalna data
+tags: ["Analizy", "Modele AI"]       # WYMAGANA tablica stringów
+draft: false                         # opcjonalny boolean, domyślnie false
+heroImage: "../../assets/cover.png"  # opcjonalny obrazek
 ---
 ```
 
-- `heroImage` to import obrazu względem pliku wpisu (np. `../../assets/moj-obrazek.jpg`); typ sprawdza schemat Astro.
-- `draft: true` → wpis jest widoczny lokalnie (`npm run dev`), ale **nie trafia** do builda, listy, RSS ani mapy strony.
-- Reszta pliku to Markdown/MDX. Styly treści (`.prose`) są już w `src/styles/global.css`.
+**Pierwszy tag to kategoria wpisu** — wyświetla się na karcie, w filtrach `/all` i w nagłówku wpisu.
+`draft: true` → wpis widoczny lokalnie, pomijany na produkcji, w RSS i mapie strony.
+Czas czytania liczy `getReadingTime()` z `src/utils/posts.ts` (słowa / 200).
 
-## 2. Zasady nazywania plików
+Nazwy plików: małe litery, myślniki zamiast spacji, bez polskich znaków. Plik staje się adresem
+`/blog/<nazwa-pliku>/`.
 
-- Wyłącznie **małe litery**.
-- **Myślniki** zamiast spacji: `nowy-wpis-o-ai.md`, nigdy `Nowy Wpis.o AI.md`.
-- **Brak polskich znaków** (ą, ć, ę, ł, ń, ó, ś, ź, ż) w nazwie pliku — używaj odpowiedników ASCII.
-- Rozszerzenie `.md` zwykły tekst, `.mdx` gdy potrzebujesz komponentów Astro w treści.
-- Nazwa pliku staje się adresem URL: `/blog/<nazwa-pliku>/`.
-
-## 3. Komendy
+## 2. Komendy
 
 ```bash
-npm run dev       # lokalny podgląd: http://localhost:4321
-npm run build     # produkcyjny build do katalogu dist/
-npm run preview   # podgląd zbudowanej wersji
+npm run dev       # http://localhost:4321
+npm run build     # dist/
+npm run preview
 ```
 
-Publikacja odbywa się **wyłącznie przez GitHub Actions**: push na `main` albo merge PR-a do `main`
-odpala workflow `.github/workflows/deploy-pages.yml`, który publikuje stronę na
-**https://refinico.github.io/**. Nie ma już Cloudflare Pages ani Vercela.
+Publikacja: push na `main` albo merge PR-a do `main` → GitHub Actions
+(`.github/workflows/deploy-pages.yml`) → https://refinico.github.io/
 
-## 4. ZASADA BEZWZGLĘDNA — build przed każdym wypchnięciem
+## 3. ZASADA BEZWZGLĘDNA — build przed każdym pchnięciem
 
 **Przed każdym `git push` uruchom `npm run build` i upewnij się, że nie ma błędów.**
 
@@ -53,30 +48,29 @@ odpala workflow `.github/workflows/deploy-pages.yml`, który publikuje stronę n
 npm run build && git add -A && git commit -m "Opis zmian" && git push
 ```
 
-Jeśli build kończy się błędem — nie wypychaj. Napraw błąd i uruchom build ponownie. Dotyczy też zmian wyłącznie w treści (wpisy są walidowane przez schemat podczas builda).
+Błąd buildu = nie wypychaj. Schemat waliduje wpisy podczas builda.
 
-## 5. Mapa projektu (kiedy co edytować)
+## 4. Mapa projektu
 
-- `src/pages/index.astro` — strona główna (hero + 3 najnowsze wpisy).
-- `src/pages/blog/index.astro` — lista wpisów + filtrowanie po tagach (parameter `?tag=`).
-- `src/pages/blog/[...slug].astro` — generowanie stron wpisów (używa `getPublishedPosts()`).
-- `src/layouts/BaseLayout.astro` — wspólny szkielet HTML (nagłówek, stopka, kontener).
-- `src/layouts/BlogPost.astro` — układ strony wpisu (tytuł, data, tagi, obrazek, treść).
-- `src/components/` — `Header`, `Footer`, `ThemeToggle`, `PostCard`, `FormattedDate`, `BaseHead`, `HeaderLink`.
-- `src/utils/posts.ts` — sortowanie wpisów, ukrywanie szkiców, zliczanie tagów.
-- `src/styles/global.css` — Tailwind + motyw jasny/ciemny + typografia `.prose`.
-- `src/consts.ts` — tytuł, opis i autor strony.
-- `astro.config.mjs` — `site` (zmienna `SITE_URL`), MDX, sitemap, Tailwind.
+- `src/pages/index.astro` — strona główna: wyróżniony wpis, 3 najnowsze, 9 wpisów, kolekcje.
+- `src/pages/all/` — lista z filtrem kategorii, wyszukiwarką i paginacją (9 na stronę).
+- `src/pages/blog/` — alternatywna lista + strony wpisów (`[...slug].astro`).
+- `src/pages/about.astro`, `src/pages/partnerships.astro` — strony statyczne.
+- `src/layouts/BaseLayout.astro` — wspólny szkielet (`Header`, `Footer`, motyw).
+- `src/layouts/BlogPost.astro` — strona wpisu: kategorie, meta, udostępnianie, prose, „Może Ci się spodobać".
+- `src/components/` — `Header`, `Footer`, `ThemeToggle`, `FeaturedPost`, `PostCard`,
+  `PostExplorer`, `Pagination`, `AllPostsView`, `BaseHead`, `FormattedDate`.
+- `src/styles/global.css` — tokeny kolorów, fonty (Inter / Space Grotesk / Libre Baskerville),
+  przyciski, typografia `.article-prose`.
+- `src/utils/posts.ts` — sortowanie, szkice, kategoria, czas czytania, paginacja.
+- `src/consts.ts` — tytuł i opis strony.
 
-Tryb ciemny: atrybut `data-theme="light|dark"` na `<html>`, wybór w `localStorage` (klucz `theme`), domyślnie `prefers-color-scheme`. Nie zmieniaj tej logiki bez wyraźnego zlecenia.
+Motyw: klasa `light`/`dark` na `<html>`, klucz `localStorage['blogs-theme']`, domyślnie jasny.
+Nie zmieniaj logiki motywu bez wyraźnego zlecenia.
 
-## 6. Repozytorium i hosting
+## 5. Repozytorium i hosting
 
-- Repo źródłowe: `refinico/moj-blog-astro` (klient `gh` jest zalogowany).
+- Repo źródłowe: `refinico/moj-blog-astro`, gałąź produkcyjna `main`.
 - Hosting: **wyłącznie GitHub Pages** — https://refinico.github.io/
-- Deploy: workflow `.github/workflows/deploy-pages.yml` (push na `main`, zmerge'owany PR do `main`
-  albo `workflow_dispatch`) buduje Astro i publikuje `dist/` do repo
-  `refinico/refinico.github.io`, gałąź `gh-pages`, przez sekret `PAGES_DEPLOY_KEY`.
-- `SITE_URL=https://refinico.github.io` ustawione w workflow; RSS i sitemap używają go do linków.
-- Repo `refinico.github.io` zawiera tylko wygenerowane pliki — nigdy nie edytuj go ręcznie.
-- Cloudflare Pages i Vercel zostały usunięte — nie przywracaj ich bez wyraźnego zlecenia.
+- Repo `refinico.github.io` zawiera tylko wygenerowane pliki (gałąź `gh-pages`) — nie edytuj ręcznie.
+- Cloudflare Pages i Vercel usunięte — nie przywracaj bez zlecenia.

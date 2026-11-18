@@ -1,0 +1,62 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+import { getCategory, getReadingTime } from '../utils/posts';
+
+interface Props {
+	post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const category = getCategory(post);
+const readTime = getReadingTime(post);
+---
+
+<div class="mb-8">
+	<span class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
+		<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+		Wyróżnione
+	</span>
+</div>
+
+<a class="group grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center" href={`/blog/${post.id}/`}>
+	<div class="lg:col-span-6 flex flex-col gap-6 order-2 lg:order-1">
+		<h2 class="text-3xl sm:text-4xl lg:text-4xl font-semibold tracking-tight text-foreground leading-[1.1]">
+			{post.data.title}
+		</h2>
+		<p class="text-muted-foreground text-base lg:text-lg leading-relaxed line-clamp-3 max-w-xl">
+			{post.data.description}
+		</p>
+		<div class="flex items-center gap-6">
+			<div class="flex items-center gap-3 text-sm text-muted-foreground">
+				<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">{category}</span>
+				<FormattedDate date={post.data.pubDate} />
+				<span class="w-1 h-1 rounded-full bg-border"></span>
+				<span>{readTime} min czytania</span>
+			</div>
+		</div>
+		<span class="inline-flex items-center gap-2 text-sm font-semibold text-primary group-hover:gap-3 transition-all duration-300 w-fit">
+			Czytaj dalej
+			<svg viewBox="0 0 24 24" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M5 12h14M12 5l7 7-7 7"></path>
+			</svg>
+		</span>
+	</div>
+
+	<div class="lg:col-span-6 order-1 lg:order-2">
+		<div class="relative aspect-[16/9] rounded-2xl overflow-hidden bg-muted">
+			{post.data.heroImage ? (
+				<Image
+					src={post.data.heroImage}
+					alt={post.data.title}
+					width={1200}
+					height={675}
+					class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+				/>
+			) : (
+				<div class="h-full w-full bg-gradient-to-br from-primary/60 to-accent"></div>
+			)}
+		</div>
+	</div>
+</a>

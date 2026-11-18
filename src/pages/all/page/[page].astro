@@ -1,0 +1,23 @@
+---
+import AllPostsView from '../../../components/AllPostsView.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../../consts';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getAllTags, getPublishedPosts, paginate } from '../../../utils/posts';
+
+export async function getStaticPaths() {
+	const posts = await getPublishedPosts();
+	const { totalPages } = paginate(posts, 1);
+	return Array.from({ length: totalPages - 1 }, (_, i) => ({
+		params: { page: String(i + 2) },
+	}));
+}
+
+const { page } = Astro.params;
+const posts = await getPublishedPosts();
+const tags = getAllTags(posts);
+const { items, currentPage, totalPages } = paginate(posts, Number(page) || 1);
+---
+
+<BaseLayout title={`Wszystkie wpisy — strona ${currentPage} — ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
+	<AllPostsView posts={items} {tags} {currentPage} {totalPages} />
+</BaseLayout>

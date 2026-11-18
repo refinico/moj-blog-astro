@@ -1,0 +1,30 @@
+---
+interface Props {
+	currentPage: number;
+	totalPages: number;
+	basePath?: string;
+}
+
+const { currentPage, totalPages, basePath = '/all' } = Astro.props;
+const href = (page: number) => (page === 1 ? basePath : `${basePath}/page/${page}`);
+const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+const visible = pages.filter((p) => p <= 2 || p >= totalPages - 1 || Math.abs(p - currentPage) <= 1);
+---
+
+{totalPages > 1 && (
+	<nav class="flex items-center justify-center gap-1.5 mb-16" aria-label="Paginacja">
+		{visible.map((page, index) => (
+			<>
+				{index > 0 && page - visible[index - 1] > 1 && <span class="px-1 text-sm text-muted-foreground">…</span>}
+				{page === currentPage ? (
+					<span aria-current="page" class="px-3 py-1.5 rounded-md text-sm font-semibold bg-muted text-foreground">{page}</span>
+				) : (
+					<a class="px-3 py-1.5 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" href={href(page)}>{page}</a>
+				)}
+			</>
+		))}
+		{currentPage < totalPages && (
+			<a rel="next" class="px-3 py-1.5 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" href={href(currentPage + 1)}>Następna</a>
+		)}
+	</nav>
+)}

@@ -2,18 +2,55 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="mt-16 border-t border-slate-200 py-10 dark:border-slate-800">
-	<div
-		class="mx-auto flex max-w-3xl flex-col items-center justify-between gap-4 px-5 text-sm text-slate-500 sm:flex-row dark:text-slate-400"
-	>
-		<p>&copy; {year} Refinico AI Daily. Wszelkie prawa zastrzeżone.</p>
-		<nav class="flex gap-5" aria-label="Nawigacja w stopce">
-			<a class="transition-colors hover:text-slate-900 dark:hover:text-white" href="/blog">Blog</a>
-			<a class="transition-colors hover:text-slate-900 dark:hover:text-white" href="/rss.xml">RSS</a>
-			<a
-				class="transition-colors hover:text-slate-900 dark:hover:text-white"
-				href="/sitemap-index.xml">Mapa strony</a
-			>
-		</nav>
+<footer class="border-t border-border bg-muted/30">
+	<div class="mx-auto max-w-6xl px-6 pt-12">
+		<div class="flex flex-col gap-4 rounded-2xl border border-border bg-background p-6 sm:flex-row sm:items-center sm:justify-between">
+			<div>
+				<h2 class="text-base font-semibold text-foreground">Współpraca z Refinico AI Daily</h2>
+				<p class="mt-1 text-sm text-muted-foreground">
+					Gościnne wpisy, recenzje narzędzi i artykuły sponsorowane. Zobacz, co możemy zrobić razem.
+				</p>
+			</div>
+			<a class="btn-primary shrink-0" href="/partnerships">Zostań partnerem</a>
+		</div>
+	</div>
+
+	<div class="mx-auto grid max-w-6xl gap-10 px-6 py-12 sm:grid-cols-2 lg:grid-cols-3">
+		<div>
+			<h2 class="mb-4 text-sm font-semibold text-foreground">Kategorie</h2>
+			<ul class="space-y-2.5">
+				<li><a class="text-sm text-muted-foreground hover:text-foreground" href="/all?tag=Analizy">Analizy</a></li>
+				<li><a class="text-sm text-muted-foreground hover:text-foreground" href="/all?tag=Poradniki">Poradniki</a></li>
+				<li><a class="text-sm text-muted-foreground hover:text-foreground" href="/all?tag=Narzędzia">Narzędzia</a></li>
+				<li><a class="text-sm text-muted-foreground hover:text-foreground" href="/all?tag=Recenzje">Recenzje</a></li>
+				<li><a class="text-sm text-muted-foreground hover:text-foreground" href="/all?tag=Porównania">Porównania</a></li>
+				<li><a class="text-sm text-muted-foreground hover:text-foreground" href="/all?tag=Kodowanie">Kodowanie</a></li>
+			</ul>
+		</div>
+
+		<div>
+			<h2 class="mb-4 text-sm font-semibold text-foreground">Popularne wpisy</h2>
+			<ul class="space-y-2.5">
+				<li><a class="text-sm text-muted-foreground hover:text-foreground" href="/blog/frameworki-agentow-ai/">Frameworki agentów AI</a></li>
+				<li><a class="text-sm text-muted-foreground hover:text-foreground" href="/blog/najlepsze-modele-ai-2026/">Najlepsze modele AI 2026</a></li>
+				<li><a class="text-sm text-muted-foreground hover:text-foreground" href="/blog/rag-i-bazy-wektorowe/">RAG i bazy wektorowe</a></li>
+				<li><a class="text-sm text-muted-foreground hover:text-foreground" href="/blog/promptowanie-dla-developerow/">Promptowanie dla developerów</a></li>
+			</ul>
+		</div>
+
+		<div>
+			<h2 class="mb-4 text-sm font-semibold text-foreground">Refinico AI Daily</h2>
+			<ul class="space-y-2.5">
+				<li><a class="text-sm text-muted-foreground hover:text-foreground" href="/">Strona główna</a></li>
+				<li><a class="text-sm text-muted-foreground hover:text-foreground" href="/all">Wszystkie wpisy</a></li>
+				<li><a class="text-sm text-muted-foreground hover:text-foreground" href="/about">O blogu</a></li>
+				<li><a class="text-sm text-muted-foreground hover:text-foreground" href="/partnerships">Współpraca</a></li>
+				<li><a class="text-sm text-muted-foreground hover:text-foreground" href="/rss.xml">RSS</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="border-t border-border px-6 py-5 text-center text-xs text-muted-foreground">
+		© {year} Refinico AI Daily. Wszelkie prawa zastrzeżone.
 	</div>
 </footer>
