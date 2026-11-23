@@ -14,6 +14,8 @@ const blog = defineCollection({
 			tags: z.array(z.string()),
 			draft: z.boolean().default(false),
 			heroImage: image().optional(),
+			// Identyfikator draftu w aplikacji źródłowej — używany do idempotencji synchronizacji.
+			sourceDraftId: z.string().optional(),
 		}),
 });
 

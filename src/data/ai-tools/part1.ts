@@ -6,7 +6,7 @@ export const part1: AiCategory[] = [
 	{
 		id: 'chatboty',
 		name: 'Chatboty i asystenci',
-		desc: 'Uniwersalne asystenci AI do codziennej pracy — wałkimulti­narzędzia świata AI.',
+		desc: 'Uniwersalni asystenci AI do codziennej pracy — scyzoryki szwajcarskie świata AI.',
 		tools: [
 			{ name: 'ChatGPT', url: 'https://chatgpt.com', best: 'Asystent uniwersalny', desc: 'Flagowy asystent OpenAI. Mocny w rozumowaniu, pisaniu, kodowaniu i zadaniach agentowych. Ma generowanie obrazów, tryb głosowy i deep research.', price: 'Free / $20 Plus / $200 Pro' },
 			{ name: 'Claude', url: 'https://claude.ai', best: 'Pisanie i kodowanie', desc: 'Asystent Anthropica — ceniony za długie teksty, niuansowane rozumowanie i pracę z kodem (Claude Code). Oferuje Artifacts i Skills.', price: 'Free / $20 Pro / $100 Max' },

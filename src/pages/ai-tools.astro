@@ -1,0 +1,295 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { AI_CATEGORIES, AI_TOOL_COUNT, initials, domain } from '../data/ai-tools';
+
+const title = 'Katalog narzędzi AI: 300+ najlepszych narzędzi AI | Refinico AI Daily';
+const description =
+	'Przeglądaj ponad 300 ręcznie wyselekcjonowanych narzędzi AI w 23 kategoriach — pisanie, kodowanie, research, design, marketing, automatyzacja i więcej. Porównaj, do czego służy każde narzędzie, i wybierz właściwe w kilka sekund.';
+
+const eyebrow = `KURACJA: LISTOPAD 2026`;
+const stats = [
+	{ icon: 'grid', value: String(AI_CATEGORIES.length), label: 'KATEGORIE' },
+	{ icon: 'star', value: '100%', label: 'WYBRANE RĘCZNIE' },
+	{ icon: 'bolt', value: 'DLA', label: 'TWÓRCÓW' },
+];
+const marquee = [
+	`${AI_TOOL_COUNT} NARZĘDZI AI`,
+	`${AI_CATEGORIES.length} KATEGORIE`,
+	'ZERO HYPE',
+	'TWÓRCA NA PIERWSZYM MIEJSCU',
+	'AKTUALIZOWANE CO MIESIĄC',
+	'KURATOWANE PRZEZ LUDZI',
+	'ZRÓB COŚ DZISIAJ',
+];
+---
+
+<!doctype html>
+<html lang="pl">
+	<head>
+		<BaseHead {title} {description} />
+	</head>
+	<body
+		class="aitl min-h-screen bg-white text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-200"
+	>
+		<Header />
+
+		<main class="flex min-h-screen flex-col">
+			<!-- HERO -->
+			<section class="aitl-hero">
+				<div class="aitl-hero-main">
+					<div class="aitl-eyebrow">{eyebrow}</div>
+					<h1>
+						<span class="line">KOMPLETNA</span>
+						<span class="line"><span class="ink">BIBLIOTEKA</span></span>
+						<span class="line"><span class="underline">NARZĘDZI AI.</span></span>
+					</h1>
+					<div class="aitl-hero-sub">
+						{AI_TOOL_COUNT} sprawdzonych narzędzi AI w {AI_CATEGORIES.length}
+						kategoriach — wybranych ręcznie i ułożonych według tego, co naprawdę robią. Zero
+						fluffu, zero śmieci afiliacyjnych. Tylko narzędzia, które działają.
+					</div>
+				</div>
+				<div class="aitl-hero-side">
+					<div class="aitl-hero-stamp" aria-hidden="true">
+						<div class="card front">
+							<div class="num">{AI_TOOL_COUNT}</div>
+							<div class="lbl">NARZĘDZI W INDEKSIE</div>
+						</div>
+					</div>
+					<div class="aitl-hero-stat-grid">
+						{
+							stats.map((s) => (
+								<div class="stat-item">
+									{s.icon === 'grid' && (
+										<svg
+											width="20"
+											height="20"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											aria-hidden="true"
+										>
+											<rect x="3" y="3" width="7" height="7" />
+											<rect x="14" y="3" width="7" height="7" />
+											<rect x="14" y="14" width="7" height="7" />
+											<rect x="3" y="14" width="7" height="7" />
+										</svg>
+									)}
+									{s.icon === 'star' && (
+										<svg
+											width="20"
+											height="20"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											aria-hidden="true"
+										>
+											<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+										</svg>
+									)}
+									{s.icon === 'bolt' && (
+										<svg
+											width="20"
+											height="20"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											aria-hidden="true"
+										>
+											<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+										</svg>
+									)}
+									<div class="val">{s.value}</div>
+									<div class="lbl">{s.label}</div>
+								</div>
+							))
+						}
+					</div>
+				</div>
+			</section>
+
+			<!-- PASEK MARQUEE -->
+			<div class="aitl-stats-bar" aria-hidden="true">
+				<div class="aitl-stats-track">
+					{[...marquee, ...marquee].map((m) => <span>{m}</span>)}
+				</div>
+			</div>
+
+			<!-- WYSZUKIWARKA -->
+			<section class="aitl-search-section">
+				<div class="aitl-search-box">
+					<svg
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="3"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<circle cx="11" cy="11" r="8"></circle>
+						<path d="m21 21-4.3-4.3"></path>
+					</svg>
+					<input
+						type="search"
+						id="aitl-search"
+						class="aitl-search-input"
+						placeholder="SZUKAJ NARZĘDZI PO NAZWIE LUB ZASTOSOWANIU..."
+						autocomplete="off"
+						aria-label="Szukaj narzędzi AI"
+					/>
+				</div>
+			</section>
+
+			<!-- KATALOG -->
+			<section class="aitl-dir">
+				<!-- Wybór kategorii: mobile -->
+				<div class="aitl-mobile-cats">
+					<div class="aitl-mobile-label">PRZEGLĄDAJ WEDŁUG KATEGORII</div>
+					<div class="aitl-select-wrapper">
+						<select id="aitl-mobile-select" aria-label="Wybierz kategorię">
+							{
+								AI_CATEGORIES.map((cat, i) => (
+									<option value={`cat-${cat.id}`}>
+										{cat.name} ({cat.tools.length})
+									</option>
+								))
+							}
+						</select>
+						<div class="aitl-select-arrow" aria-hidden="true">↓</div>
+					</div>
+				</div>
+
+				<!-- Boczna lista kategorii: desktop -->
+				<aside class="aitl-side">
+					<div class="aitl-side-head">Kategorie</div>
+					<ul class="aitl-side-list">
+						{
+							AI_CATEGORIES.map((cat, i) => (
+								<li>
+									<a href={`#cat-${cat.id}`} class="aitl-side-item">
+										<span class="name">{cat.name}</span>
+										<span class="num">{cat.tools.length}</span>
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</aside>
+
+				<!-- Sekcje kategorii -->
+				<div class="aitl-list-wrap">
+					{
+						AI_CATEGORIES.map((cat, ci) => (
+							<div class="aitl-list-section" id={`cat-${cat.id}`} data-cat>
+								<div class="aitl-list-head">
+									<div class="aitl-list-tag">
+										KAT_{String(ci + 1).padStart(2, '0')} ✦ {cat.tools.length} NARZĘDZI
+									</div>
+									<h2 class="aitl-list-title">{cat.name}</h2>
+									<div class="aitl-list-desc">{cat.desc}</div>
+								</div>
+								<div class="aitl-list">
+									{cat.tools.map((tool) => (
+										<article class="aitl-row" data-search={`${tool.name} ${tool.best} ${tool.desc}`.toLowerCase()}>
+											<div class="aitl-row-icon" aria-hidden="true">
+												<img
+													src={`https://www.google.com/s2/favicons?domain=${domain(tool.url)}&sz=64`}
+													alt=""
+													width="28"
+													height="28"
+													loading="lazy"
+												/>
+												<span class="aitl-row-initials">{initials(tool.name)}</span>
+											</div>
+											<div class="aitl-row-body">
+												<div class="aitl-row-top">
+													<h3 class="aitl-row-name">{tool.name}</h3>
+													<span class="aitl-row-best">{tool.best}</span>
+												</div>
+												<div class="aitl-row-desc">{tool.desc}</div>
+												<div class="aitl-row-price">{tool.price}</div>
+											</div>
+											<div class="aitl-row-cta">
+												<a
+													class="aitl-row-visit"
+													href={tool.url}
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													ODWIEDŹ
+												</a>
+											</div>
+										</article>
+									))}
+								</div>
+							</div>
+						))
+					}
+
+					<div id="aitl-empty" class="is-hidden">
+						Nic nie znaleziono. Spróbuj innego zapytania.
+					</div>
+				</div>
+			</section>
+
+			<!-- CTA -->
+			<section class="aitl-cta">
+				<div class="aitl-cta-ghost" aria-hidden="true">ŚLEDŹ AI</div>
+				<div class="aitl-cta-inner">
+					<div>
+						<div class="aitl-cta-eyebrow">CODZIENNIE <span class="star">✦</span> REFINICO AI DAILY</div>
+						<h2>Chcesz nadążać za <span class="blue">AI</span> bez zaglądania w dziesiątki serwisów?</h2>
+						<div class="aitl-cta-sub">
+							Na blogu codziennie piszemy o nowych narzędziach, modelach i eksperymentach —
+							krótko i na temat.
+						</div>
+					</div>
+					<div class="aitl-cta-action">
+						<a href="/blog" class="aitl-cta-btn">CZYTAJ BLOG</a>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<Footer />
+
+		<script>
+			const search = document.getElementById('aitl-search') as HTMLInputElement | null;
+			const empty = document.getElementById('aitl-empty');
+
+			if (search) {
+				search.addEventListener('input', () => {
+					const q = search.value.trim().toLowerCase();
+					document.querySelectorAll<HTMLElement>('.aitl-row').forEach((row) => {
+						const haystack = row.dataset.search ?? '';
+						row.classList.toggle('is-hidden', q !== '' && !haystack.includes(q));
+					});
+					let visible = 0;
+					document.querySelectorAll<HTMLElement>('.aitl-list-section').forEach((section) => {
+						const count = section.querySelectorAll('.aitl-row:not(.is-hidden)').length;
+						section.classList.toggle('is-hidden', count === 0);
+						visible += count;
+					});
+					if (empty) empty.classList.toggle('is-hidden', visible !== 0);
+				});
+			}
+
+			// Mobile: przejście do kategorii z selecta
+			const mobileSelect = document.getElementById('aitl-mobile-select');
+			if (mobileSelect) {
+				mobileSelect.addEventListener('change', () => {
+					const target = document.getElementById(mobileSelect.value);
+					target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				});
+			}
+		</script>
+	</body>
+</html>
