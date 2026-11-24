@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
-// Adres kanoniczny. Workflow nadpisuje SITE_URL tym samym adresem przy deployu.
+// Adres kanoniczny: agentpmo.pl; workflow ustawia SITE_URL na ten sam adres przy deployu.
 export default defineConfig({
 	site: process.env.SITE_URL || 'https://agentpmo.pl',
 	integrations: [mdx(), sitemap()],

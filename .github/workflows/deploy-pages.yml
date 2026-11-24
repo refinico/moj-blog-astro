@@ -21,7 +21,7 @@ concurrency:
 
 jobs:
   deploy:
-    name: Build i publikacja na agentpmo.pl (GitHub Pages)
+    name: Build i publikacja do repo refinico.github.io (GitHub Pages)
     runs-on: ubuntu-latest
     # Ignoruj PR-y zamknięte bez merge'a oraz PR-y z forków (brak sekretów).
     if: >
@@ -58,3 +58,6 @@ jobs:
           publish_branch: gh-pages
           publish_dir: ./dist
           keep_files: false
+          # Plik CNAME przy każdym deployu. Bez niego keep_files: false kasuje
+          # CNAME z gh-pages i GitHub Pages odpina domenę agentpmo.pl.
+          cname: agentpmo.pl

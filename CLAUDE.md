@@ -45,7 +45,7 @@ bez sprawdzenia, czy picomatch wydał łatana wersję. Surowy `npm audit` nadal 
 to oczekiwane.
 
 Publikacja: push na `main` albo merge PR-a do `main` → GitHub Actions
-(`.github/workflows/deploy-pages.yml`) → https://refinico.github.io/
+(`.github/workflows/deploy-pages.yml`) → https://agentpmo.pl/
 
 ## 3. ZASADA BEZWZGLĘDNA — build przed każdym pchnięciem
 
@@ -78,6 +78,10 @@ Nie zmieniaj logiki motywu bez wyraźnego zlecenia.
 ## 5. Repozytorium i hosting
 
 - Repo źródłowe: `refinico/moj-blog-astro`, gałąź produkcyjna `main`.
-- Hosting: **wyłącznie GitHub Pages** — https://refinico.github.io/
+- Hosting: **wyłącznie GitHub Pages** — https://agentpmo.pl/ (własna domena repo
+  `refinico.github.io`; adres https://refinico.github.io/ przekierowuje na domenę).
 - Repo `refinico.github.io` zawiera tylko wygenerowane pliki (gałąź `gh-pages`) — nie edytuj ręcznie.
+- Domena: DNS w home.pl, rekordy A na adresy GitHub Pages. Plik CNAME tworzy opcja
+  `cname: agentpmo.pl` w kroku publikacji workflow — nie usuwaj jej: przy `keep_files: false`
+  deploy skasowałby CNAME i GitHub Pages odpiąłby domenę.
 - Cloudflare Pages i Vercel usunięte — nie przywracaj bez zlecenia.

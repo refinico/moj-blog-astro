@@ -61,9 +61,7 @@ Motyw: `localStorage['blogs-theme']` (`light`/`dark`), domyślnie jasny. Tokeny 
 ## Deploy
 
 Push na `main` lub merge PR-a do `main` odpala workflow
-`.github/workflows/deploy-pages.yml`, który publikuje `dist/` do repozytorium
-`refinico/refinico.github.io` (gałąź `gh-pages`). Treść jest serwowana pod kanoniczną domeną
-**https://agentpmo.pl/** — `refinico.github.io` automatycznie przekierowuje na nią.
+`.github/workflows/deploy-pages.yml`, który publikuje `dist/` do repozytorium `refinico/refinico.github.io` (gałąź `gh-pages`). Treść jest serwowana pod kanoniczną domeną **https://agentpmo.pl/** — `refinico.github.io` automatycznie przekierowuje na nią. Plik CNAME dodaje opcja `cname` w kroku publikacji — bez niej każdy deploy odpinałby domenę.
 
 > Przed każdym `git push` uruchom `npm run build`.
 
