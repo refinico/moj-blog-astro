@@ -49,7 +49,7 @@ src/
 │  ├─ index.astro       # wyróżniony wpis, najnowsze, wszystkie, kolekcje
 │  ├─ all/              # lista z filtrem, wyszukiwarką i paginacją
 │  ├─ blog/             # alternatywny adres listy + strony wpisów
-│  ├─ about, partnerships
+│  ├─ about
 │  └─ rss.xml.js
 ├─ styles/global.css    # tokeny motywu, fonty, typografia wpisu
 └─ utils/posts.ts       # sortowanie, kategoria, czas czytania, paginacja

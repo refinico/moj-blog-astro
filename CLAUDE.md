@@ -62,7 +62,7 @@ Błąd buildu = nie wypychaj. Schemat waliduje wpisy podczas builda.
 - `src/pages/index.astro` — strona główna: wyróżniony wpis, 3 najnowsze, 9 wpisów, kolekcje.
 - `src/pages/all/` — lista z filtrem kategorii, wyszukiwarką i paginacją (9 na stronę).
 - `src/pages/blog/` — alternatywna lista + strony wpisów (`[...slug].astro`).
-- `src/pages/about.astro`, `src/pages/partnerships.astro` — strony statyczne.
+- `src/pages/about.astro` — strona statyczna.
 - `src/layouts/BaseLayout.astro` — wspólny szkielet (`Header`, `Footer`, motyw).
 - `src/layouts/BlogPost.astro` — strona wpisu: kategorie, meta, udostępnianie, prose, „Może Ci się spodobać".
 - `src/components/` — `Header`, `Footer`, `ThemeToggle`, `FeaturedPost`, `PostCard`,
