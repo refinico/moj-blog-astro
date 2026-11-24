@@ -5,9 +5,9 @@ import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
-// Adres kanoniczny. Nadpisz zmienną SITE_URL przy deployu na własną domenę.
+// Adres kanoniczny: własna domena agentpmo.pl. Zmienna SITE_URL go nadpisuje.
 export default defineConfig({
-	site: process.env.SITE_URL || 'https://refinico.github.io',
+	site: process.env.SITE_URL || 'https://agentpmo.pl',
 	integrations: [mdx(), sitemap()],
 	vite: {
 		plugins: [tailwindcss()],

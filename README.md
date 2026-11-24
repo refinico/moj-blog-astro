@@ -61,7 +61,9 @@ Motyw: `localStorage['blogs-theme']` (`light`/`dark`), domyślnie jasny. Tokeny 
 ## Deploy
 
 Push na `main` lub merge PR-a do `main` odpala workflow
-`.github/workflows/deploy-pages.yml`, który publikuje `dist/` na **https://refinico.github.io/**.
+`.github/workflows/deploy-pages.yml`, który publikuje `dist/` do repo `refinico.github.io`,
+widocznego pod własną domeną **https://agentpmo.pl/**. Plik CNAME dodaje opcja `cname` w kroku
+publikacji — bez niej każdy deploy odpinałby domenę.
 
 > Przed każdym `git push` uruchom `npm run build`.
 
