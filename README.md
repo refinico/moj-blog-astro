@@ -61,9 +61,41 @@ Motyw: `localStorage['blogs-theme']` (`light`/`dark`), domyślnie jasny. Tokeny 
 ## Deploy
 
 Push na `main` lub merge PR-a do `main` odpala workflow
-`.github/workflows/deploy-pages.yml`, który publikuje `dist/` na **https://refinico.github.io/**.
+`.github/workflows/deploy-pages.yml`, który publikuje `dist/` do repozytorium
+`refinico/refinico.github.io` (gałąź `gh-pages`). Treść jest serwowana pod kanoniczną domeną
+**https://agentpmo.pl/** — `refinico.github.io` automatycznie przekierowuje na nią.
 
 > Przed każdym `git push` uruchom `npm run build`.
+
+### Domena i indeksowanie
+
+- `public/CNAME` utrzymuje domenę w gałęzi `gh-pages` mimo `keep_files: false` w workflow.
+- `public/robots.txt` wskazuje na `https://agentpmo.pl/sitemap-index.xml`.
+- `SITE_URL` w workflow i domyślny `site` w `astro.config.mjs` muszą wskazywać na
+  `https://agentpmo.pl` — dzięki temu canonicale, sitemap i RSS są spójne z domeną.
+- `www.agentpmo.pl` wymaga rekordu CNAME u operatora DNS (`www` → `refinico.github.io`)
+  oraz wpisania `www.agentpmo.pl` w ustawieniach *Custom domain* GitHub Pages. Wtedy GitHub
+  przekieruje `www` na domenę główną.
+- Po deployu dodaj własność w [Google Search Console](https://search.google.com/search-console)
+  i wyślij `https://agentpmo.pl/sitemap-index.xml` (Inspekcja adresu URL → Poproś o indeksowanie).
+  Nowa domena potrzebuje zwykle kilku dni na pierwsze indeksowanie.
+
+### Google Analytics 4
+
+`src/components/BaseHead.astro` ładuje `gtag.js` tylko na produkcji i tylko wtedy, gdy build
+otrzyma `PUBLIC_GA_MEASUREMENT_ID`. Bez tej zmiennej strona działa bez analytics.
+
+Lokalnie:
+
+```bash
+cp .env.example .env
+# uzupełnij: PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+npm run build
+```
+
+Na GitHubie: *Settings → Secrets and variables → Actions → Variables* → dodaj
+`PUBLIC_GA_MEASUREMENT_ID` z wartością `G-...`. Wdrożenie GA w UE wymaga mechanizmu zgody
+(RODO/e-prywatność) — tracker nie powinien zbierać danych przed uzyskaniem zgody.
 
 ## Bezpieczeństwo / npm audit
 

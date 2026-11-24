@@ -21,7 +21,7 @@ concurrency:
 
 jobs:
   deploy:
-    name: Build i publikacja na refinico.github.io
+    name: Build i publikacja na agentpmo.pl (GitHub Pages)
     runs-on: ubuntu-latest
     # Ignoruj PR-y zamknięte bez merge'a oraz PR-y z forków (brak sekretów).
     if: >
@@ -30,7 +30,8 @@ jobs:
        github.event.pull_request.base.ref == 'main' &&
        github.event.pull_request.head.repo.full_name == github.repository)
     env:
-      SITE_URL: https://refinico.github.io
+      SITE_URL: https://agentpmo.pl
+      PUBLIC_GA_MEASUREMENT_ID: ${{ vars.PUBLIC_GA_MEASUREMENT_ID }}
     steps:
       - name: Checkout (stan po merge'u, tj. main)
         uses: actions/checkout@v4
