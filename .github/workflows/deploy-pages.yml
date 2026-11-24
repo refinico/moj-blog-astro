@@ -31,6 +31,7 @@ jobs:
        github.event.pull_request.head.repo.full_name == github.repository)
     env:
       SITE_URL: https://agentpmo.pl
+      PUBLIC_GTM_ID: ${{ vars.PUBLIC_GTM_ID }}
       PUBLIC_GA_MEASUREMENT_ID: ${{ vars.PUBLIC_GA_MEASUREMENT_ID }}
     steps:
       - name: Checkout (stan po merge'u, tj. main)

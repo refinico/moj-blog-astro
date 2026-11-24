@@ -11,6 +11,7 @@ interface Props {
 }
 
 const { title = SITE_TITLE, description = SITE_DESCRIPTION, image } = Astro.props;
+const gtmContainerId = import.meta.env.PUBLIC_GTM_ID;
 ---
 
 <!doctype html>
@@ -19,6 +20,11 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION, image } = Astro.prop
 		<BaseHead {title} {description} {image} />
 	</head>
 	<body>
+		{import.meta.env.PROD && gtmContainerId && (
+			<noscript>
+				<iframe src={`https://www.googletagmanager.com/ns.html?id=${gtmContainerId}`} height="0" width="0" style="display:none;visibility:hidden"></iframe>
+			</noscript>
+		)}
 		<div class="blogs-theme min-h-screen">
 			<Header />
 			<main class="bg-background min-h-screen">

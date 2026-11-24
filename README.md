@@ -78,22 +78,25 @@ Push na `main` lub merge PR-a do `main` odpala workflow
   i wyślij `https://agentpmo.pl/sitemap-index.xml` (Inspekcja adresu URL → Poproś o indeksowanie).
   Nowa domena potrzebuje zwykle kilku dni na pierwsze indeksowanie.
 
-### Google Analytics 4
+### Analytics — GTM / Google Analytics 4
 
-`src/components/BaseHead.astro` ładuje `gtag.js` tylko na produkcji i tylko wtedy, gdy build
-otrzyma `PUBLIC_GA_MEASUREMENT_ID`. Bez tej zmiennej strona działa bez analytics.
+`src/components/BaseHead.astro` ładuje skrypt tylko na produkcji i tylko wtedy, gdy build
+otrzyma jedną ze zmiennych. **GTM ma priorytet** — gdy jest ustawiony `PUBLIC_GTM_ID`,
+bezpośredni `gtag.js` nie jest ładowany, więc zdarzenia nie podwajają się. Tag GA4 powinien
+być skonfigurowany wewnątrz kontenera GTM.
 
 Lokalnie:
 
 ```bash
 cp .env.example .env
-# uzupełnij: PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+# uzupełnij: PUBLIC_GTM_ID=GTM-XXXXXXX  (albo PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX)
 npm run build
 ```
 
-Na GitHubie: *Settings → Secrets and variables → Actions → Variables* → dodaj
-`PUBLIC_GA_MEASUREMENT_ID` z wartością `G-...`. Wdrożenie GA w UE wymaga mechanizmu zgody
-(RODO/e-prywatność) — tracker nie powinien zbierać danych przed uzyskaniem zgody.
+Na GitHubie: *Settings → Secrets and variables → Actions → Variables* → dodaj `PUBLIC_GTM_ID`
+z wartością `GTM-...` (lub `PUBLIC_GA_MEASUREMENT_ID` z `G-...`, jeśli nie używasz GTM).
+Wdrożenie GA w UE wymaga mechanizmu zgody (RODO/e-prywatność) — tracker nie powinien zbierać
+danych przed uzyskaniem zgody.
 
 ## Bezpieczeństwo / npm audit
 
