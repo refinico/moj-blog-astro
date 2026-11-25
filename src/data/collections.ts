@@ -1,52 +1,72 @@
-import coverAgents from '../assets/cover-agents.png';
-import coverModels from '../assets/cover-models.png';
-import coverRag from '../assets/cover-rag.png';
-import coverCode from '../assets/cover-code.png';
 import type { BlogPost } from '../utils/posts';
 
 export interface Collection {
 	slug: string;
 	title: string;
-	/** Tag używany w frontmatterze wpisów — musi się dokładnie zgadzać. */
-	tag: string;
+	/** Tagi z frontmatteru wpisów — muszą się dokładnie zgadzać. */
+	tags: string[];
 	description: string;
-	image: typeof coverAgents;
+	gradient: string;
 }
 
 export const collections: Collection[] = [
 	{
-		slug: 'agenci-ai',
-		title: 'Agenci AI',
-		tag: 'AgenciAI',
-		description: 'Wpisy o agentach AI, ich architekturze, pamięci i nadzorze nad nimi.',
-		image: coverAgents,
+		slug: 'agenci-i-modele-ai',
+		title: 'Agenci i Modele AI',
+		tags: ['AgenciAI', 'ModeleAI'],
+		description: 'Agenci, modele językowe i to, co z nich naprawdę działa w praktyce.',
+		gradient: 'from-sky-500/70 to-cyan-400/50',
 	},
 	{
-		slug: 'modele-ai',
-		title: 'Modele AI',
-		tag: 'ModeleAI',
-		description: 'Analizy modeli językowych i porównania ich możliwości.',
-		image: coverModels,
+		slug: 'zarzadzanie-produktem',
+		title: 'Zarządzanie Produktem',
+		tags: [
+			'ProductOwner',
+			'ChangeManagement',
+			'AdopcjaAI',
+			'Zarządzanie',
+			'Delegowanie',
+			'Praca',
+			'Wdrożenie',
+			'Wdrożenia',
+			'POC',
+			'Produkcja',
+			'Hackathon',
+		],
+		description: 'Zarządzanie produktem i angażement zespołu: adopcja AI, decyzje i wdrożenia z perspektywy Product Ownera i PMO.',
+		gradient: 'from-violet-500/70 to-indigo-400/50',
 	},
 	{
-		slug: 'rag-i-wektory',
-		title: 'RAG i wektory',
-		tag: 'RAG',
-		description: 'RAG, bazy wektorowe i wyszukiwanie semantyczne.',
-		image: coverRag,
+		slug: 'bezpieczenstwo-i-regulacje',
+		title: 'Bezpieczeństwo i regulacje',
+		tags: [
+			'Bezpieczeństwo',
+			'Cyberbezpieczeństwo',
+			'Prawo',
+			'RODO',
+			'Regulacje',
+			'AIAct',
+			'Compliance',
+			'EtykaAI',
+			'Etyka',
+			'PromptInjection',
+			'Uprawnienia',
+		],
+		description: 'Ryzyka, prompt injection, prawo i regulacje wokół systemów AI.',
+		gradient: 'from-rose-500/70 to-orange-400/50',
 	},
 	{
 		slug: 'kodowanie',
 		title: 'Kodowanie',
-		tag: 'Kodowanie',
+		tags: ['Kodowanie'],
 		description: 'Praktyczne poradniki kodowania i narzędzia dla programistów.',
-		image: coverCode,
+		gradient: 'from-emerald-500/70 to-teal-400/50',
 	},
 ];
 
-/** Liczba wpisów z danym tagiem — kafelki kolekcji nie mają stałych liczb. */
-export function countPostsWithTag(posts: BlogPost[], tag: string): number {
-	return posts.filter((post) => post.data.tags.includes(tag)).length;
+/** Liczba wpisów pasujących do dowolnego z tagów kolekcji. */
+export function countPostsWithTags(posts: BlogPost[], tags: string[]): number {
+	return posts.filter((post) => post.data.tags.some((tag) => tags.includes(tag))).length;
 }
 
 /** Poprawna polska odmiana: 1 artykuł, 2 artykuły, 5 artykułów. */

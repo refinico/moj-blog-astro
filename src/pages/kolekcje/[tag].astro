@@ -6,14 +6,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPublishedPosts } from '../../utils/posts';
 
 export async function getStaticPaths() {
-	return collections.map(({ slug, title, tag, description }) => ({
+	return collections.map(({ slug, title, tags, description }) => ({
 		params: { tag: slug },
-		props: { slug, title, tag, description },
+		props: { slug, title, tags, description },
 	}));
 }
 
-const { slug, title, tag, description } = Astro.props;
-const posts = (await getPublishedPosts()).filter((post) => post.data.tags.includes(tag));
+const { slug, title, tags, description } = Astro.props;
+const posts = (await getPublishedPosts()).filter((post) =>
+	post.data.tags.some((tag) => tags.includes(tag)),
+);
 ---
 
 <BaseLayout title={`${title} — ${SITE_TITLE}`} description={`${description} — Refinico AI Daily.`}>
