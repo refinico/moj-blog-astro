@@ -49,6 +49,7 @@ src/
 │  ├─ index.astro       # wyróżniony wpis, najnowsze, wszystkie, kolekcje
 │  ├─ all/              # lista z filtrem, wyszukiwarką i paginacją
 │  ├─ blog/             # alternatywny adres listy + strony wpisów
+│  ├─ kolekcje/         # strony kolekcji: wszystkie wpisy z danego tagu
 │  ├─ about
 │  └─ rss.xml.js
 ├─ styles/global.css    # tokeny motywu, fonty, typografia wpisu

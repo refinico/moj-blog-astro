@@ -1,12 +1,9 @@
 ---
 import { Image } from 'astro:assets';
-import coverAgents from '../assets/cover-agents.png';
-import coverModels from '../assets/cover-models.png';
-import coverRag from '../assets/cover-rag.png';
-import coverCode from '../assets/cover-code.png';
 import FeaturedPost from '../components/FeaturedPost.astro';
 import PostCard from '../components/PostCard.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { collections, countPostsWithTag, formatArticleCount } from '../data/collections';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getAllTags, getPublishedPosts } from '../utils/posts';
 
@@ -16,12 +13,11 @@ const [featured, ...rest] = posts;
 const latest = rest.slice(0, 3);
 const allPosts = posts.slice(0, 9);
 
-const collections = [
-	{ title: 'Agenci AI', count: 12, image: coverAgents, href: '/all?tag=Agenci%20AI' },
-	{ title: 'Modele AI', count: 18, image: coverModels, href: '/all?tag=Modele%20AI' },
-	{ title: 'RAG i wektory', count: 9, image: coverRag, href: '/all?tag=RAG' },
-	{ title: 'Kodowanie', count: 24, image: coverCode, href: '/all?tag=Kodowanie' },
-];
+const collectionCards = collections.map((collection) => ({
+	...collection,
+	count: formatArticleCount(countPostsWithTag(posts, collection.tag)),
+	href: `/kolekcje/${collection.slug}/`,
+}));
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -87,14 +83,14 @@ const collections = [
 				</a>
 			</div>
 			<div class="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-				{collections.map((collection) => (
+				{collectionCards.map((collection) => (
 					<a href={collection.href} class="group flex flex-col rounded-xl border border-border overflow-hidden bg-card hover:border-primary/40 hover:shadow-sm transition-all duration-200">
 						<div class="relative aspect-[16/9] bg-muted overflow-hidden">
 							<Image src={collection.image} alt={collection.title} width={480} height={270} class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]" />
 						</div>
 						<div class="p-4">
 							<h3 class="font-semibold text-foreground group-hover:text-primary transition-colors">{collection.title}</h3>
-							<p class="mt-1 text-xs text-muted-foreground">{collection.count} artykułów</p>
+							<p class="mt-1 text-xs text-muted-foreground">{collection.count}</p>
 						</div>
 					</a>
 				))}

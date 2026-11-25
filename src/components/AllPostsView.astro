@@ -9,6 +9,8 @@ interface Props {
 	totalPages: number;
 	basePath?: string;
 	id?: string;
+	title?: string;
+	description?: string;
 }
 
 const {
@@ -18,6 +20,8 @@ const {
 	totalPages,
 	basePath = '/all',
 	id = 'all-posts-list',
+	title = 'Wszystkie wpisy o AI, modelach i kodowaniu',
+	description = 'Przeglądaj pełną kolekcję artykułów: analizy modeli, poradniki kodowania, narzędzia i praktyczne zastosowania sztucznej inteligencji.',
 } = Astro.props;
 ---
 
@@ -27,9 +31,9 @@ const {
 			<svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"></path></svg>
 			Wstecz
 		</a>
-		<h1 class="text-3xl lg:text-4xl font-bold tracking-tight text-foreground mb-3">Wszystkie wpisy o AI, modelach i kodowaniu</h1>
+		<h1 class="text-3xl lg:text-4xl font-bold tracking-tight text-foreground mb-3">{title}</h1>
 		<p class="text-base text-muted-foreground max-w-2xl leading-relaxed">
-			Przeglądaj pełną kolekcję artykułów: analizy modeli, poradniki kodowania, narzędzia i praktyczne zastosowania sztucznej inteligencji.
+			{description}
 		</p>
 	</div>
 

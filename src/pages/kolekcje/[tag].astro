@@ -1,0 +1,30 @@
+---
+import AllPostsView from '../../components/AllPostsView.astro';
+import { SITE_TITLE } from '../../consts';
+import { collections } from '../../data/collections';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedPosts } from '../../utils/posts';
+
+export async function getStaticPaths() {
+	return collections.map(({ slug, title, tag, description }) => ({
+		params: { tag: slug },
+		props: { slug, title, tag, description },
+	}));
+}
+
+const { slug, title, tag, description } = Astro.props;
+const posts = (await getPublishedPosts()).filter((post) => post.data.tags.includes(tag));
+---
+
+<BaseLayout title={`${title} — ${SITE_TITLE}`} description={`${description} — Refinico AI Daily.`}>
+	<AllPostsView
+		{posts}
+		tags={[]}
+		currentPage={1}
+		totalPages={1}
+		basePath={`/kolekcje/${slug}`}
+		title={title}
+		description={description}
+		id={`kolekcja-${slug}`}
+	/>
+</BaseLayout>
