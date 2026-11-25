@@ -1,3 +1,7 @@
+import coverAgenci from '../assets/cover-kolekcja-agenci-i-modele-ai.jpg';
+import coverZarzadzanie from '../assets/cover-kolekcja-zarzadzanie-produktem.jpg';
+import coverBezpieczenstwo from '../assets/cover-kolekcja-bezpieczenstwo-i-regulacje.jpg';
+import coverKodowanie from '../assets/cover-kolekcja-kodowanie.jpg';
 import type { BlogPost } from '../utils/posts';
 
 export interface Collection {
@@ -6,7 +10,7 @@ export interface Collection {
 	/** Tagi z frontmatteru wpisów — muszą się dokładnie zgadzać. */
 	tags: string[];
 	description: string;
-	gradient: string;
+	image: typeof coverAgenci;
 }
 
 export const collections: Collection[] = [
@@ -15,7 +19,7 @@ export const collections: Collection[] = [
 		title: 'Agenci i Modele AI',
 		tags: ['AgenciAI', 'ModeleAI'],
 		description: 'Agenci, modele językowe i to, co z nich naprawdę działa w praktyce.',
-		gradient: 'from-sky-500/70 to-cyan-400/50',
+		image: coverAgenci,
 	},
 	{
 		slug: 'zarzadzanie-produktem',
@@ -34,7 +38,7 @@ export const collections: Collection[] = [
 			'Hackathon',
 		],
 		description: 'Zarządzanie produktem i angażement zespołu: adopcja AI, decyzje i wdrożenia z perspektywy Product Ownera i PMO.',
-		gradient: 'from-violet-500/70 to-indigo-400/50',
+		image: coverZarzadzanie,
 	},
 	{
 		slug: 'bezpieczenstwo-i-regulacje',
@@ -53,14 +57,14 @@ export const collections: Collection[] = [
 			'Uprawnienia',
 		],
 		description: 'Ryzyka, prompt injection, prawo i regulacje wokół systemów AI.',
-		gradient: 'from-rose-500/70 to-orange-400/50',
+		image: coverBezpieczenstwo,
 	},
 	{
 		slug: 'kodowanie',
 		title: 'Kodowanie',
 		tags: ['Kodowanie'],
 		description: 'Praktyczne poradniki kodowania i narzędzia dla programistów.',
-		gradient: 'from-emerald-500/70 to-teal-400/50',
+		image: coverKodowanie,
 	},
 ];
 
